@@ -1,53 +1,47 @@
 ---
-title: 'Delivery Guide'
+title: '진행 가이드'
 layout: default
 nav_order: 8
 ---
-# LLMOps Workshop 
+# LLMOps 워크샵
 
-## Delivery Guide  
-   
-This page is designed to assist **instructors** in effectively delivering the **LLMOps workshop**.
+## 배송 가이드
 
-The workshop is structured into **six lessons**, each comprising conceptual slides and hands-on **lab exercises**. Instructors are encouraged to adapt the content based on their experience and the needs of the audience.
+이 페이지는 **강사들**이 **LLMOps 워크샵**을 효과적으로 전달하는 데 도움을 주기 위해 설계되었습니다.
 
-The hands-on activities can be demonstrated by the instructor if the students prefer. For instance, we suggest that the **first lesson's lab** could be presented as a **demo** to introduce participants to the tools without disrupting the timeline of future lessons.
-   
-### Preparation  
+워크샵은 **6개의 레슨**으로 구성되어 있으며, 각 레슨은 개념 슬라이드와 실습 **랩 연습**으로 구성됩니다. 강사들은 자신의 경험과 대상 그룹의 요구에 따라 내용을 조정하는 것을 권장합니다.
 
-Each lab has its **prerequisites** and **setup** section for the **hands-on** part, detailed at the beginning of the respective lab. If participants are expected to engage in hands-on activities rather than watch a demonstration, it's good practice to have them check the prerequisites and complete the setup **before** starting the practical exercises.
+핸즈온 활동은 학생들이 원한다면 강사가 직접 시연할 수도 있습니다. 예를 들어, **첫 번째 레슨의 랩**은 향후 레슨의 일정을 방해하지 않고 참가자들에게 도구를 소개하기 위해 **데모**로 제시될 수 있습니다.
 
+### 준비
 
-### Planning the Workshop  
-   
-When planning the workshop session, consider that each lesson has an **estimated duration**, including time for presenting slides and conducting hands-on exercises or a demonstration.  
+각 랩에는 **사전 요구 사항**과 **설치** 섹션이 있으며, 해당 랩의 시작 부분에서 자세히 설명되어 있습니다. 학생들이 실습 활동에 참여하는 것이 아니라 시연을 보는 것을 기대한다면, 실습을 시작하기 전에 사전 요구 사항을 확인하고 설치를 완료하는 것이 좋은 실천 방법입니다.
 
-> The duration may vary based on factors such as class size, level of interaction, internet speed, and the technical proficiency of the participants. 
+### 워크샵 계획
 
-This workshop is structured to span over an 8-hour duration, encompassing all lessons. However, the length can be tailored to the participants' needs, permitting shorter sessions or emphasis on particular topics.
+워크샵 세션을 계획할 때, 각 레슨에는 슬라이드를 제시하고 핸즈온 연습이나 데모를 진행하는 데 필요한 시간을 포함한 **예상 소요 시간**이 있습니다.
 
-### Delivery Scenarios  
-   
-Here are some suggestions for workshop configurations, which can be adjusted based on specific needs.  
+> 소요 시간은 수업 규모, 상호 작용 수준, 인터넷 속도 및 참가자의 기술 능력과 같은 요소에 따라 다를 수 있습니다.
 
+이 워크샵은 모든 레슨을 포함한 8시간 동안 진행되도록 구성되어 있습니다. 그러나 참가자의 요구에 맞게 길이를 조정하여 짧은 세션 또는 특정 주제에 중점을 둘 수 있습니다.
 
-| Content | Duration | Lessons |
+### 진행 시나리오
+
+다음은 특정 요구 사항에 따라 조정할 수 있는 워크샵 구성에 대한 몇 가지 제안입니다.
+
+| 내용 | 소요 시간 | 레슨 |
 |-------------|----------|---------|
-| Full Workshop | Two Days (2x4h) | D1: 1,2 and 3; D2: 4 and 5|
-| Overview, Build, Evaluate and Deploy | Half Day (4h) | 1,2 and 3 |
-| Overview, Build, Evaluate and Deploy - Short Version * | 3h |  1,2,3 * |
-| Overview and Automation ** | 2h | 1,6 ** |
+| 전체 워크샵 | 2일 (2x4시간) | D1: 1,2,3; D2: 4,5 |
+| 개요, 빌드, 평가 및 배포 | 반일 (4시간) | 1,2,3 |
+| 개요, 빌드, 평가 및 배포 - 간략 버전 * | 3시간 | 1,2,3 * |
+| 개요 및 자동화 ** | 2시간 | 1,6 ** |
 
-
-
-> **Notes** <BR><BR> * In this condensed version, the first hour will be dedicated to presenting the `Applying LLMOps concepts to LLM Apps` slides from lesson 1 section, followed Lessons 2 and 3 sections from the full deck. The subsequent two hours will be allocated to conducting Labs 2 and 3.
+> **참고** <BR><BR> * 이 간략한 버전에서는 첫 번째 시간은 레슨 1 섹션의 `LLMOps 개념을 LLM 앱에 적용하기` 슬라이드를 제시하는 데 사용되며, 이후 2시간은 랩 2와 3을 진행하는 데 할당됩니다.
 <BR><BR>
-> ** For this option, use the `LLMOps Overview and Automation` deck followed by lesson 6 lab.
+> **이 옵션의 경우, `LLMOps 개요 및 자동화` 덱을 사용한 다음 레슨 6 랩을 진행하십시오.
 
+### 추가 권장 사항
 
+강사들은 예기치 않은 상황이 발생할 경우 랩 연습을 데모로 진행하거나 사전 녹화된 비디오를 대비해 준비해야 합니다.
 
-### Additional Recommendations
-
-Instructors should be prepared to either run the lab exercises as a demo or have a pre-recorded video available as a backup in case of any unforeseen circumstances.
-
-For virtual format, it's recommended to cap sessions at 4 hours, incorporating breaks between lessons to sustain participant engagement and productivity.
+가상 형식의 경우, 참가자의 참여와 생산성을 유지하기 위해 레슨 간에 휴식을 포함하여 세션을 4시간으로 제한하는 것이 좋습니다.

@@ -1,88 +1,88 @@
 ---
-title: 'Performance Evaluation'
+title: '성능 평가'
 layout: default
 nav_order: 1
-parent: 'Lab 06: Performance Evaluation'
+parent: 'Lab 06: 성능 평가'
 ---
-# Performance Evaluation
+# 성능 평가
 
-When developing Language Model (LLM) applications, we typically invest a significant amount of time in both development and evaluation. This is to ensure that the application can generate high-quality responses that are grounded in reliable sources and pose no harm to the user.
+언어 모델 (LLM) 애플리케이션을 개발할 때는 개발과 평가에 상당한 시간을 투자합니다. 이는 애플리케이션이 신뢰할 수 있는 소스에 기반한 고품질의 응답을 생성하고 사용자에게 해를 끼치지 않는 것을 보장하기 위한 것입니다.
 
-However, the effectiveness of an LLM application's user experience is determined not only by the quality of responses but also by how fast the user gets these responses. Therefore, our discussion centers on the evaluation of LLM applications designed for rapid response times.
+그러나 LLM 애플리케이션의 사용자 경험의 효과성은 응답의 품질뿐만 아니라 사용자가 이러한 응답을 얼마나 빨리 받는지에 따라 결정됩니다. 따라서 우리의 논의는 주로 빠른 응답 시간을 위해 설계된 LLM 애플리케이션의 평가에 중점을 둡니다.
 
-<!-- **Performance engineering** optimizes application performance through practices like performance tuning, which enhances application functionality, and performance monitoring, which identifies issues and bottlenecks, particularly during production. The ability to foresee and address these issues before they affect the end-users is critical. This is where the role of **performance evaluation** becomes crucial, which is the primary subject of this text -->
+<!-- **성능 엔지니어링**은 성능 튜닝과 같은 실천을 통해 애플리케이션 성능을 최적화하고, 생산 중에 문제와 병목 현상을 식별하는 성능 모니터링과 같은 실천을 통해 애플리케이션 기능을 향상시킵니다. 이러한 문제가 최종 사용자에게 영향을 미치기 전에 이러한 문제를 예측하고 해결할 수 있는 능력은 매우 중요합니다. 이것이 **성능 평가**의 역할이 중요해지는 곳입니다. 이 텍스트의 주요 주제입니다. -->
 
-The aim of **performance evaluation** is to proactively test the application to identify and address performance issues before they impact end-users. In the subsequent sections, we will explore performance evaluation in detail. We will discuss building an effective strategy, mastering evaluation techniques, and provide practical guides. Here's what you can expect:
+**성능 평가**의 목적은 애플리케이션을 사전에 테스트하여 성능 문제를 식별하고 해결하는 것입니다. 다음 섹션에서는 성능 평가에 대해 자세히 알아보겠습니다. 효과적인 전략 구축, 평가 기법 습득 및 실용적인 가이드를 논의할 것입니다. 다음과 같은 내용을 기대할 수 있습니다:
 
-- [Building an Effective Strategy](#building-an-effective-strategy)
-- [Mastering Evaluation Techniques](#mastering-evaluation-techniques)
-- [How-To Guides](#how-to-guides)
+- [효과적인 전략 구축](#효과적인-전략-구축)
+- [평가 기법 습득](#평가-기법-습득)
+- [How-To 가이드](#How-To-가이드)
 
-## Building an Effective Strategy
+## 효과적인 전략 구축
 
-Each application has unique characteristics, such as user count, transaction volume, and expected response time. Therefore, it's crucial for you to establish an effective evaluation strategy tailored to the specific application you're evaluating.
+각 애플리케이션은 사용자 수, 트랜잭션 볼륨, 예상 응답 시간과 같은 고유한 특성을 가지고 있습니다. 따라서 평가 중인 특정 애플리케이션에 맞춤화된 효과적인 평가 전략을 수립하는 것이 중요합니다.
 
-Before initiating the tests, you need to outline your strategy, which includes determining the aspects to test and the methods to use. This section provides a detailed discussion on these considerations.
+테스트를 시작하기 전에 테스트할 측면과 사용할 방법을 결정하는 것이 포함된 전략을 개요로 작성해야 합니다. 이 섹션에서는 이러한 고려 사항에 대해 자세히 논의합니다.
 
-### Identifying What to Evaluate
+### 평가할 내용 식별
 
-Let's start by defining what you are going to test. For example, if the application is fully implemented and running in an environment similar to production, you can conduct a comprehensive load test. This allows you to measure performance and anticipate the user experience before the application is released to end users.
+먼저 무엇을 테스트할지 정의하는 것으로 시작해 보겠습니다. 예를 들어, 애플리케이션이 완전히 구현되어 프로덕션과 유사한 환경에서 실행 중인 경우, 포괄적인 부하 테스트를 수행할 수 있습니다. 이를 통해 애플리케이션이 출시되기 전에 성능을 측정하고 사용자 경험을 예측할 수 있습니다.
 
-Testing the entire application is a good idea as it provides a measure of response times that closely mirrors what a user will experience when interacting with the application. However, a user's interaction with a Large Language Model (LLM) App involves several elements. These include the application frontend, backend, networking, the LLM model, and other cloud services like databases and AI services.
+전체 애플리케이션을 테스트하는 것은 사용자가 애플리케이션과 상호 작용할 때 경험하는 응답 시간을 가깝게 모사하는 측정치를 제공하기 때문에 좋은 아이디어입니다. 그러나 대형 언어 모델 (LLM) 앱의 사용자 상호 작용에는 여러 요소가 포함됩니다. 이에는 애플리케이션 프론트엔드, 백엔드, 네트워킹, LLM 모델 및 데이터베이스 및 AI 서비스와 같은 기타 클라우드 서비스가 포함됩니다.
 
-This is particularly true for modern application architectures. With this, you have the opportunity to perform performance tests on specific service even before the entire application is completed and ready for deployment. For example, you can preemptively test the performance of the Large Language Model (LLM) that you will use in the application, even before it is ready. In the [Mastering Evaluation Techniques](#mastering-evaluation-techniques) section, you will see how you can test the performance of a model deployed in the Azure OpenAI service.
+이는 특히 현대적인 애플리케이션 아키텍처에 대해서도 마찬가지입니다. 이를 통해 전체 애플리케이션이 완료되고 배포 준비가 완료되기 전에 특정 서비스의 성능 테스트를 수행할 수 있습니다. 예를 들어, 애플리케이션에서 사용할 대형 언어 모델 (LLM)의 성능을 준비되기 전에 미리 테스트할 수 있습니다. [평가 기법 습득](#평가-기법-습득) 섹션에서는 Azure OpenAI 서비스에 배포된 모델의 성능을 테스트하는 방법을 알아볼 수 있습니다.
 
-Now let's take a look at an example of an application architecture where you have multiple services working together to produce a response for the user.
+이제 여러 서비스가 함께 작동하여 사용자에게 응답을 생성하는 애플리케이션 아키텍처의 예를 살펴보겠습니다.
 
-**Retrieval Augmented Generation** (RAG) is an architectural pattern frequently used in the development of Large Language Model (LLM) Applications, such as ChatGPT. Before making a call to the LLM to generate content, this architecture includes a retrieval step, which is crucial in providing grounding data. The [Enterprise RAG architecture](https://aka.ms/gpt-rag) offers a practical example of the RAG pattern implemented in an enterprise setting. In the [How-To Guides](#how-to-guides) section, you will see an example of how to perform load testing on an LLM application based on the RAG pattern.
+**검색 증강 생성** (RAG)은 ChatGPT와 같은 대형 언어 모델 (LLM) 애플리케이션 개발에서 자주 사용되는 아키텍처 패턴입니다. 콘텍스트 데이터를 제공하는 데 중요한 검색 단계를 LLM을 호출하기 전에 포함합니다. [Enterprise RAG 아키텍처](https://aka.ms/gpt-rag)는 기업 환경에서 구현된 RAG 패턴의 실용적인 예를 제공합니다. [How-To 가이드](#How-To-가이드) 섹션에서는 RAG 패턴을 기반으로 한 LLM 애플리케이션에 대한 부하 테스트를 수행하는 방법을 살펴볼 수 있습니다.
 
-![Architecture Overview](../media/perftest-GPT-RAG-Basic-communication.png)
-<p align="center"><i>Example of communication between the components of an LLM App based on the RAG pattern.</i></p>
+![아키텍처 개요](../media/perftest-GPT-RAG-Basic-communication.png)
+<p align="center"><i>RAG 패턴을 기반으로 한 LLM 앱 구성 요소 간의 통신 예시.</i></p>
 
-> Note: To simplify the diagram, we did not represent the return messages.
+> 참고: 다이어그램을 간단하게 유지하기 위해 반환 메시지를 표시하지 않았습니다.
 
-This figure illustrates the orchestration flow within an LLM application based on RAG. 
+이 그림은 RAG를 기반으로 한 LLM 애플리케이션 내에서의 오케스트레이션 플로우를 보여줍니다.
 
-Here's how it works:
+다음은 작동 방식입니다:
 
-1) The user interacts with the frontend UI to pose a question.
-2) The frontend service forwards the user's question to the Orchestrator.
-3) The Orchestrator retrieves the user's conversation history from the database.
-4) The Orchestrator accesses the AI Search key stored in the Key Vault.
-5) The Orchestrator retrieves relevant documents from the AI Search index.
-6) The Orchestrator uses Azure OpenAI to generate a user response.
+1) 사용자가 프론트엔드 UI를 사용하여 질문을 제기합니다.
+2) 프론트엔드 서비스가 사용자의 질문을 오케스트레이터로 전달합니다.
+3) 오케스트레이터가 데이터베이스에서 사용자의 대화 기록을 검색합니다.
+4) 오케스트레이터가 Key Vault에 저장된 AI 검색 키에 액세스합니다.
+5) 오케스트레이터가 AI 검색 인덱스에서 관련 문서를 검색합니다.
+6) 오케스트레이터가 Azure OpenAI를 사용하여 사용자 응답을 생성합니다.
 
-Each step in the process involves data transfer and processing across various services, all contributing to the total response time. In such scenarios, you can evaluate not just the overall application response time, but also the performance of individual components, like the response times of the Azure OpenAI model deployment.
+이 프로세스의 각 단계는 다양한 서비스 간의 데이터 전송 및 처리를 수반하며, 모두 총 응답 시간에 기여합니다. 이러한 시나리오에서는 전체 애플리케이션 응답 시간뿐만 아니라 Azure OpenAI 모델 배포의 응답 시간과 같은 개별 구성 요소의 성능도 평가할 수 있습니다.
 
-Ultimately, the scope of testing depends on each application's specific requirements. For instance, an internal application and a public-facing application may have different performance needs. While a response time of 15 seconds might be acceptable in an internal HR application used to view paychecks, a contact center app with hundreds of users might need to respond much faster due to its high user demand and SLAs. Make sure you know the requirements of your application before starting your performance evaluation.
+최종적으로 테스트 범위는 각 애플리케이션의 특정 요구 사항에 따라 달라집니다. 예를 들어, 내부 애플리케이션과 공개 애플리케이션은 서로 다른 성능 요구 사항을 가질 수 있습니다. 내부 HR 애플리케이션에서 15초의 응답 시간은 허용 가능할 수 있지만, 수백 명의 사용자가 있는 연락처 센터 앱은 높은 사용자 요구와 SLA로 인해 훨씬 더 빠른 응답이 필요할 수 있습니다. 성능 평가를 시작하기 전에 애플리케이션의 요구 사항을 알고 있도록 해야 합니다.
 
-### Test Scenario
+### 테스트 시나리오
 
-Once you have defined what you will evaluate, it's crucial to define the test scenario. This will not be like timing how long it takes for completions to appear in the playground, how long a Prompt flow's flow takes to execute, or the duration of code execution in VS Code. These metrics, which are based on a single user's experience, can help identify potential performance bottlenecks in specific components. However, to truly gauge the performance under real-world conditions, your test scenario should simulate the actual usage load of the application.
+평가할 내용을 정의한 후, 테스트 시나리오를 정의하는 것이 매우 중요합니다. 이 시나리오는 Playground에서 완성이 나타나는 데 걸리는 시간, Prompt Flow의 흐름이 실행되는 데 걸리는 시간 또는 VS Code에서 코드 실행 시간과 같지 않을 것입니다. 이러한 메트릭은 특정 구성 요소에서 잠재적인 성능 병목 현상을 식별하는 데 도움이 될 수 있지만, 실제 세계의 조건에서 성능을 평가하려면 테스트 시나리오는 실제 사용량 부하를 모방해야 합니다.
 
-In performance testing, after deciding what to measure, it's essential to define the test scenario accurately. This scenario won't be as simple as measuring the time it takes for completions to appear in the model playground or the execution time of a flow in Prompt Flow. While these metrics, based on a single user's experience, can help pinpoint potential performance issues in specific components, they don't provide a complete picture. To truly understand the performance under real-world conditions, your test scenario should mimic the actual usage load of the application.
+성능 테스트에서는 측정할 내용을 결정한 후, 테스트 시나리오를 정확하게 정의하는 것이 매우 중요합니다. 이 시나리오는 모델 플레이그라운드에서 완성이 나타나는 데 걸리는 시간이나 Prompt Flow의 실행 시간과 같은 것보다 간단하지 않을 것입니다. 이러한 메트릭은 단일 사용자의 경험을 기반으로 하기 때문에 특정 구성 요소에서 잠재적인 성능 병목 현상을 식별하는 데 도움이 될 수 있지만, 실제 세계의 조건에서 성능을 정확히 이해하기 위해서는 테스트 시나리오가 애플리케이션의 실제 사용 부하를 모방해야 합니다.
 
-First, we need to determine the load that will be placed on the application. This load is defined in terms of throughput, which is the number of requests the application will receive within a specific time frame, such as **Requests per Minute** (RPM).
+먼저 애플리케이션에 부과될 부하를 결정해야 합니다. 이 부하는 초당 요청 수와 같은 특정 시간 프레임 내에서 애플리케이션이 받을 요청 수로 정의됩니다.
 
-There are multiple ways to estimate the expected throughput. If the application is already operational, you can use its current usage data, gathered from monitoring tools, as a reference. The subsequent figure illustrates this approach. If you foresee an increase in usage due to the integration of LLM into the solution, you should adjust your throughput estimation to accommodate this anticipated growth.
+예상되는 부하를 추정하는 여러 가지 방법이 있습니다. 애플리케이션이 이미 운영 중인 경우 모니터링 도구에서 수집한 현재 사용 데이터를 참조할 수 있습니다. 다음 그림은 이 접근 방식을 설명합니다. LLM을 솔루션에 통합하여 사용량이 증가할 것으로 예상되는 경우 예상된 성장을 수용하기 위해 추정된 부하를 조정해야 합니다.
 
-![Users per hour](../media/perftest-users-per-hour.png)
-<p align="center"><i>Example of usage scenario, see the peak load from 10h to 13h hours.</i></p>
+![시간당 사용자 수](../media/perftest-users-per-hour.png)
+<p align="center"><i>사용 시나리오 예시, 10시부터 13시까지의 최대 부하를 참조하세요.</i></p>
 
-When dealing with a new application, estimating the expected throughput can be approached through benchmarking or usage modeling. Benchmarking involves comparing your application with similar ones that serve the same target audience. By studying their usage patterns, you can get a rough estimate of the expected throughput for your application.
+새로운 애플리케이션을 다룰 때는 벤치마킹이나 사용 모델링을 통해 예상되는 부하를 추정할 수 있습니다. 벤치마킹은 동일한 대상 사용자를 대상으로 하는 유사한 애플리케이션과 비교하는 것을 의미합니다. 사용 패턴을 연구함으로써 애플리케이션의 예상 부하에 대한 대략적인 추정치를 얻을 수 있습니다.
 
-Usage modeling, on the other hand, requires you to create a model of the expected usage patterns of your application. This can be achieved by interacting with stakeholders or potential users in the specific field for which the application is being developed. Their insights can provide a better understanding of how the application might be used, which can assist in estimating the Requests Per Minute (RPM).
+반면 사용 모델링은 애플리케이션의 예상 사용 패턴을 모델링하는 것을 의미합니다. 이는 애플리케이션이 개발되는 특정 분야의 이해 관계자 또는 잠재적 사용자와 상호 작용하여 달성할 수 있습니다. 그들의 통찰력은 애플리케이션이 어떻게 사용될 수 있는지에 대한 더 나은 이해를 제공할 수 있으며, 이는 분당 요청 수 (RPM)를 추정하는 데 도움이 될 수 있습니다.
 
-One approach to model your application usage is starting by identifying the **total number of users**. This should encompass all registered, or potential users of your application. Then, identify the number of these **users** who are active **during peak usage times**. Focusing on peak usage times is crucial as off-peak data may not accurately reflect system performance, particularly for systems with distinct high usage periods.
+애플리케이션 사용을 모델링하는 한 가지 방법은 **총 사용자 수**를 식별하는 것입니다. 이는 애플리케이션의 등록된 또는 잠재적 사용자를 모두 포함해야 합니다. 그런 다음 이러한 **사용자** 중 **피크 사용 시간**에 활동하는 **사용자**의 수를 식별합니다. 피크 사용 시간에 초점을 맞추는 것은 특히 고사용 기간이 명확한 시스템의 경우 시스템 성능을 정확하게 반영하지 않을 수 있는 비 피크 데이터에 대한 정확한 시스템 성능을 반영하지 않을 수 있습니다.
 
-Next, estimate the average number of times a user will use the application during peak times. This is referred to as **sessions**. Also, estimate the number of actions or **interactions** a user makes during a session. Each interaction corresponds to a request made to the application. 
+다음으로, 피크 시간 동안 사용자가 애플리케이션을 사용하는 평균 횟수를 추정합니다. 이를 **세션**이라고 합니다. 또한 사용자가 세션 동안 수행하는 작업 또는 **상호 작용**의 수를 추정합니다. 각 상호 작용은 애플리케이션에 대한 요청에 해당합니다.
 
-For example, consider a mobile app for a shopping mall. Users are likely to have multiple interactions in a single session. They might first search for recommended restaurants, then ask about the operating hours of a specific restaurant. Each of these actions is an interaction.
+예를 들어, 쇼핑몰용 모바일 앱을 고려해 보겠습니다. 사용자는 단일 세션에서 여러 상호 작용을 수행할 가능성이 높습니다. 먼저 추천된 레스토랑을 검색한 다음 특정 레스토랑의 운영 시간에 대해 물어볼 수 있습니다. 이러한 각 작업은 상호 작용입니다.
 
 <p align="center">
-  <img src="../media/perftest-sample-sequence-diagram.png" alt="Sample user session" style="width:60%;">
+  <img src="../media/perftest-sample-sequence-diagram.png" alt="샘플 사용자 세션" style="width:60%;">
   <br>
-  <i>Example of a user session.</i>
+  <i>사용자 세션의 예시.</i>
 </p>
 
 Once you have the number of users (**u**), the percentage (**p**) of them that will use the application during the peak usage hours (**n**), the number of user sessions (**s**), and the average number of interactions (**i**) they have with the application, you can use the following formula to derive the RPM, considering these are sufficient to run a load test.
