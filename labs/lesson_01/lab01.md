@@ -1,379 +1,163 @@
 ---
-title: 'Lab 01: Introduction to LLMs and Azure AI Services'
+title: 'Lab 01: LLM과 Azure AI 서비스 소개'
 layout: default
 nav_order: 1
 ---
-#### Introduction to LLMs and Azure AI Services
+#### LLM과 Azure AI 서비스 소개
 
-In this lab, we will have an overview on how to use Azure AI to work with large language models.
+이 실습에서는 Azure AI를 사용하여 대용량 언어 모델과 작업하는 방법에 대해 알아보겠습니다.
 
-The focus will be more on an overview of the creation process, so that in the next lessons we will delve deeper into the build, evaluation, deployment, and monitoring process.
+주로 생성 프로세스에 대한 개요에 초점을 맞추고, 다음 단계에서는 빌드, 평가, 배포 및 모니터링 프로세스에 대해 자세히 알아보겠습니다.
 
-#### Prerequisites
+#### 사전 요구 사항
 
-An Azure subscription is required, where you can create an AI Project along with its AI Hub Resource, a Content Safety service, and an AI Search service.
+Azure 구독이 필요하며, AI 프로젝트와 AI 허브 리소스, 콘텐츠 안전 서비스, AI 검색 서비스를 생성할 수 있는 환경이 필요합니다.
 
-#### Setup
+#### 설정
 
-- [Create an AI Project and AI Hub Resources](#create-an-ai-project-and-ai-hub-resouces)
-- [Deploy an Azure OpenAI model](#deploy-an-azure-openai-model)
+- [AI 프로젝트 및 AI 허브 리소스 생성](#ai-프로젝트-및-ai-허브-리소스-생성)
+- [Azure OpenAI 모델 배포](#azure-openai-모델-배포)
 
-#### Lab Steps
+#### 실습 단계
 
-1) Use AzureAI Studio Playground.
-2) Work with an Open Source LLM Model.
-3) Test the prompt in Content Safety.
-4) Create a Prompt Flow flow.
+1) AzureAI Studio Playground 사용하기.
+2) 오픈 소스 LLM 모델 사용하기.
+3) 콘텐츠 안전에서 프롬프트 테스트하기.
+4) 프롬프트 플로우 플로우 생성하기.
 
-#### Setup
+#### 설정
 
-#####  Create an AI Project and AI Hub Resouces
+#####  AI 프로젝트 및 AI 허브 리소스 생성
 
-Let's start by creating a project in Azure AI Studio.
+먼저 Azure AI Studio에서 프로젝트를 생성하여 시작해 보겠습니다.
 
-Go to your browser and type: https://ai.azure.com
+브라우저에서 다음 주소를 입력하고 엔터 키를 눌러 이동합니다: https://ai.azure.com
 
-After logging in with your Azure account, you will see the following screen:
+Azure 계정으로 로그인한 후 다음 화면이 표시됩니다:
 
 ![LLMOps Workshop](images/16.12.2023_13.35.18_REC.png)
 
-In the **Build** tab, select **New AI project** to create a project.
+**빌드** 탭에서 **새 AI 프로젝트**를 선택하여 프로젝트를 생성합니다.
 
-Choose an unique name for your project.
+프로젝트에 고유한 이름을 선택합니다.
 
 ![LLMOps Workshop](images/08.04.2024_14.47.08_REC.png)
 
-Select the **Create a new resource** link and choose a name for your AI hub where your project resources will be created.
+**새 AI 허브 리소스 생성** 링크를 선택하고 프로젝트 리소스가 생성될 AI 허브의 이름을 선택합니다.
 
 ![LLMOps Workshop](images/08.04.2024_14.47.41_REC.png)
 
-> Note: Choose the region where the GPT-4 models and text-embeddings-ada-002 are available.
+> 참고: GPT-4 모델과 텍스트 임베딩 ada-002가 사용 가능한 지역을 선택하세요.
 
-Still on this screen, select the **Create a new Azure AI Search** option; this service will be used in the following lessons.
+이 화면에서 **새 Azure AI 검색 생성** 옵션을 선택합니다. 이 서비스는 다음 단계에서 사용됩니다.
 
 ![LLMOps Workshop](images/08.04.2024_14.48.05_REC.png)
 
-Finally, select Create a project for the creation of the resources to be used in your project.
+마지막으로, 프로젝트 리소스를 생성하기 위해 **프로젝트 생성**을 선택합니다.
 
 ![LLMOps Workshop](images/08.04.2024_14.48.46_REC.png)
 
 ![LLMOps Workshop](images/08.04.2024_14.49.04_REC.png)
 
-##### Deploy an Azure OpenAI model
+##### Azure OpenAI 모델 배포
 
-After creating your AI Project, the first step is to create a deployment of an OpenAI model so you can start experimenting with the prompts you will use in your application.
+AI 프로젝트를 생성한 후에는 OpenAI 모델을 배포하여 응용 프로그램에서 사용할 프롬프트를 실험할 수 있습니다.
 
-To do this, access your newly created project in the **Build** tab of the AI Studio, select the **Deployments** option, and click on **Create (Real-time endpoint)**.
+AI Studio의 **빌드** 탭에서 새로 생성한 프로젝트에 액세스한 다음 **배포** 옵션을 선택하고 **생성 (실시간 엔드포인트)**를 클릭합니다.
 
 ![LLMOps Workshop](images/06.02.2024_21.44.42_REC.png)
 
-From the list of models, select **gpt-4**.
+모델 목록에서 **gpt-4**를 선택합니다.
 
 ![LLMOps Workshop](images/12.03.2024_16.22.33_REC.png)
 
-On the next screen, define the name of the deployment, in this case, you can use the same name as the model and in the version field select the latest available version, in the example below we chose version **0125-Preview** (gpt4-turbo).
+다음 화면에서 배포의 이름을 정의하고, 버전 필드에서 최신 버전을 선택합니다. 아래 예시에서는 버전 **0125-Preview** (gpt4-turbo)를 선택했습니다.
 
 ![LLMOps Workshop](images/12.03.2024_16.31.47_REC.png)
 
-> Click on **Advanced Options** and select at least 40K **Tokens per Minute Rate Limit*** to ensure the flows run smoothly in the upcoming lessons.
+> **고급 옵션**을 클릭하고 최소 40K **분당 토큰 제한**을 선택하여 다음 단계에서 원활한 실행을 보장합니다.
 
-Now, just click on **Deploy** and your model deployment is created. You can now test it in the Playground.
+이제 **배포**를 클릭하면 모델 배포가 생성됩니다. 이제 Playground에서 테스트할 수 있습니다.
 
-##### Create a Content Safety Service
+##### 콘텐츠 안전 서비스 생성
 
-By the end of this lab, you will test with Content Safety. Therefore, click on the following link to create it [https://aka.ms/acs-create](https://aka.ms/acs-create). 
+이 실습이 끝나면 콘텐츠 안전을 테스트해 보겠습니다. 아래 링크를 클릭하여 서비스를 생성하세요: [https://aka.ms/acs-create](https://aka.ms/acs-create). 
 
-Select the resource group that you previously used for your AI Project. After that, follow the steps presented in the subsequent screens to continue with the creation process, start by clicking on **Review + create** button
+AI 프로젝트에 사용한 리소스 그룹을 선택한 후, 다음 화면에서 제시된 단계를 따라 진행하여 생성 프로세스를 완료합니다. **검토 + 생성** 버튼을 클릭하세요.
 
 ![LLMOps Workshop](images/08.04.2024_14.57.15_REC.png)
 
-Then click on **Create** to create your service.
+그런 다음 **생성**을 클릭하여 서비스를 생성합니다.
 
 ![LLMOps Workshop](images/08.04.2024_16.22.06_REC.png)
 
-Done! The Content Safety service is now created.
+완료되었습니다! 콘텐츠 안전 서비스가 생성되었습니다.
 
 ![LLMOps Workshop](images/08.04.2024_14.58.21_REC.png)
 
 
-#### Lab Steps
+#### 실습 단계
 
-##### 1) Use AzureAI Studio Playground
+##### 1) AzureAI Studio Playground 사용하기
 
-On the screen with the deployment information, select the **Open in playground** button.
+배포 정보가 표시된 화면에서 **Playground에서 열기** 버튼을 선택합니다.
 
 ![LLMOps Workshop](images/16.12.2023_16.29.30_REC.png)
 
-In this lab, we will run an example where the model will help us summarize and extract information from a conversation between a customer and a representative of a telco company.
+이 실습에서는 모델이 고객과 통신사 대표 간의 대화에서 가치 있는 정보를 추출하여 각 대화 전사에 대한 JSON 파일을 생성하는 AI 어시스턴트입니다. 다음과 같은 형식으로 JSON으로 추출하고 포맷팅합니다:
+1. 고객 이름 [name]
+2. 고객 연락처 전화번호 [phone]
+3. 대화의 주요 주제 [topic]
+4. 고객 감정 (중립, 긍정, 부정) [sentiment]
+5. 대화에서 대리인이 처리한 방식 [agent_behavior]
+6. 대화의 최종 결과 [outcome]
+7. 대화의 간단한 요약 [summary]
 
-Copy the following prompt into the system message field of the playground:
+확실한 정보만 추출하세요. 확실하지 않은 경우 JSON 파일에 "Unknown/Not Found"라고 작성하세요.
 
-```
-You're an AI assistant that helps telco company to extract valuable information from their conversations by creating JSON files for each conversation transcription you receive. You always try to extract and format as a JSON:
-1. Customer Name [name]
-2. Customer Contact Phone [phone]
-3. Main Topic of the Conversation [topic]
-4. Customer Sentiment (Neutral, Positive, Negative)[sentiment]
-5. How the Agent Handled the Conversation [agent_behavior]
-6. What was the FINAL Outcome of the Conversation [outcome]
-7. A really brief Summary of the Conversation [summary]
-
-Only extract information that you're sure. If you're unsure, write "Unknown/Not Found" in the JSON file.
-```
-
-After copying, select **Apply changes**
+복사한 후 **변경 사항 적용**을 선택하세요.
 
 ![LLMOps Workshop](images/06.02.2024_21.48.36_REC.png)
 
-Then type the following text in the chat session and click the send button:
+그런 다음 다음 텍스트를 채팅 세션에 입력하고 전송 버튼을 클릭하세요:
 
 ```
-Agent: Hello, welcome to Telco's customer service. My name is Juan, how can I assist you?
-Client: Hello, Juan. I'm calling because I'm having issues with my mobile data plan. It's very slow and I can't browse the internet or use my apps.
-Agent: I'm very sorry for the inconvenience, sir. Could you please tell me your phone number and your full name?
-Client: Yes, sure. My number is 011-4567-8910 and my name is Martín Pérez.
-Agent: Thank you, Mr. Pérez. I'm going to check your plan and your data usage. One moment, please.
-Client: Okay, thank you.
-Agent: Mr. Pérez, I've reviewed your plan and I see that you have contracted the basic plan of 2 GB of data per month. Is that correct?
-Client: Yes, that's correct.
-Agent: Well, I inform you that you have consumed 90% of your data limit and you only have 200 MB available until the end of the month. That's why your browsing speed has been reduced.
-Client: What? How is that possible? I barely use the internet on my cell phone. I only check my email and my social networks from time to time. I don't watch videos or download large files.
-Agent: I understand, Mr. Pérez. But keep in mind that some applications consume data in the background, without you realizing it. For example, automatic updates, backups, GPS, etc.
-Client: Well, but they didn't explain that to me when I contracted the plan. They told me that with 2 GB I would have enough for the whole month. I feel cheated.
-Agent: I apologize, Mr. Pérez. It was not our intention to deceive you. I offer you a solution: if you want, you can change your plan to a higher one, with more GB of data and higher speed. This way you can enjoy a better browsing experience.
-Client: And how much would that cost me?
-Agent: We have a special offer for you. For only 10 pesos more per month, you can access the premium plan of 5 GB of data and 4G speed. Are you interested?
-Client: Mmm, I don't know. Isn't there another option? Can't you give me more speed without charging me more?
-Agent: I'm sorry, Mr. Pérez. That's the only option we have available. If you don't change your plan, you'll have to wait until next month to recover your normal speed. Or you can buy an additional data package, but it would be more expensive than changing plans.
-Client: Well, let me think about it. Can I call later to confirm?
-Agent: Of course, Mr. Pérez. You can call whenever you want. The number is the same one you dialed now. Is there anything else I can help you with?
-Client: No, that's all. Thank you for your attention.
-Agent: Thank you, Mr. Pérez. Have a good day. Goodbye.
+Agent: 안녕하세요, 텔코 고객 서비스에 오신 것을 환영합니다. 저는 홍길동입니다. 어떻게 도와드릴까요?
+Client: 안녕하세요, 홍길동씨. 저는 모바일 데이터 요금제에 문제가 있어 전화드렸습니다. 인터넷이 매우 느리고 앱을 사용하거나 인터넷을 브라우징할 수 없습니다.
+Agent: 불편을 드려서 정말 죄송합니다, 귀하의 전화번호와 성함을 알려주시겠어요?
+Client: 네, 좋아요. 제 번호는 011-4567-8910이고 제 이름은 홍길동입니다.
+Agent: 감사합니다, 홍길동씨. 귀하의 요금제와 데이터 사용량을 확인해 보겠습니다. 잠시만 기다려주세요.
+Client: 네, 감사합니다.
+Agent: 홍길동씨, 귀하의 요금제를 검토했고 월 2GB의 기본 요금제를 가입하셨다고 보입니다. 맞나요?
+Client: 네, 맞습니다.
+Agent: 그렇다면 귀하의 데이터 한도의 90%를 사용하셨으며, 이번 달 말까지 200MB만 사용 가능합니다. 그래서 브라우징 속도가 낮아진 것입니다.
+Client: 뭐라고요? 어떻게 그럴 수 있죠? 저는 핸드폰에서 인터넷을 거의 사용하지 않아요. 이메일이나 소셜 네트워크를 가끔 확인할 뿐이에요. 동영상을 보거나 큰 파일을 다운로드하지 않아요.
+Agent: 이해합니다, 홍길동씨. 하지만 앱의 자동 업데이트, 백업, GPS 등 일부 애플리케이션은 귀하가 인식하지 못하고 배경에서 데이터를 소비합니다.
+Client: 그래도 제가 요금제를 가입할 때 그런 설명을 받지 못했어요. 2GB로 한 달 동안 충분하다고 말했는데요. 속은 것 같아요.
+Agent: 죄송합니다, 홍길동씨. 우리의 의도는 귀하를 속이는 것이 아니었습니다. 해결책을 제안해 드리겠습니다: 원하신다면 더 많은 데이터 용량과 더 빠른 속도를 제공하는 더 높은 요금제로 변경하실 수 있습니다. 이렇게 하면 더 나은 브라우징 경험을 즐길 수 있습니다.
+Client: 그렇다면 얼마나 비용이 드나요?
+Agent: 특별한 할인을 제공해 드립니다. 월 10페소 추가로 지불하시면 5GB 데이터와 4G 속도를 제공하는 프리미엄 요금제를 이용하실 수 있습니다. 관심이 있으신가요?
+Client: 음, 잘 모르겠어요. 다른 옵션이 없을까요? 더 많은 속도를 추가 비용 없이 제공할 수는 없을까요?
+Agent: 죄송합니다, 홍길동씨. 우리가 제공할 수 있는 유일한 옵션입니다. 요금제를 변경하지 않으시면 정상 속도를 되찾기 위해 다음 달까지 기다려야 합니다. 또는 추가 데이터 패키지를 구매할 수도 있지만, 요금제 변경보다 비용이 더 많이 들 수 있습니다.
+Client: 그럼 생각해 볼게요. 나중에 전화해서 확인해도 될까요?
+Agent: 물론, 홍길동씨. 언제든지 전화해 주세요. 지금 전화한 번호와 동일한 번호입니다. 도움이 필요한 게 더 있으신가요?
+Client: 아니요, 그게 다예요. 신경 써 주셔서 감사합니다.
+Agent: 홍길동씨, 감사합니다. 좋은 하루 보내세요. 안녕히 가세요.
 ```
 
-![LLMOps Workshop](images/06.02.2024_21.49.26_REC.png)
+결과:
 
-You will see a result generated by the model similar to the one shown in the image below.
+shop](images/17.12.2023_20.36.17_REC.png)
 
-Notice that the model correctly followed the instructions indicated in the System message field:
+#### Llama 2 배포 삭제하기
 
-![LLMOps Workshop](images/16.12.2023_16.48.13_REC.png)
+이 실습에서는 Llama2 모델을 배포하기 위해 **Standard_NC24s_v3** SKU를 사용했습니다. 다음 실습에서 사용하지 않을 것이므로 고비용 발생을 방지하기 위해 이 배포를 삭제하는 것이 좋습니다.
 
-##### 2) Work with an Open Source LLM Model
-
-Now let's test an open source Llama2 model from Meta.
-
-For this, go to the **Deployments** section in the **Build** tab and click on **Create (Real-time endpoint)**.
-
-![LLMOps Workshop](images/12.03.2024_16.55.20_REC.png)
-
-Select the model **Llama-2-13b-chat** and click on **confirm**.
-
-![LLMOps Workshop](images/12.03.2024_16.54.24_REC.png)
-
-Select the **Standard_NC24s_v3** compute for inference with the selected model, for this workshop one instance is enough.
-
-If you do not have enough quota you can access the Quota option in the Managed tab to request an increase in quota for the selected resource.
-
-![LLMOps Workshop](images/12.03.2024_16.57.31_REC.png)
-
-The creation of the deployment will take a few minutes, the time varies, but generally something between 10 and 20 minutes.
-
-![LLMOps Workshop](images/17.12.2023_18.37.17_REC.png)
-
-Done! Let's test this model by selecting the **Test** option on the deployment page.
-
-Adjust the ```max_next_tokens``` parameter to 1000 so we can test the same example we used with the gpt-4 model.
-
-![LLMOps Workshop](images/12.03.2024_22.47.37_REC.png)
-
-Now just copy the text below into the "Start typing text box" and then send to observe the response generated by the Llama2 model.
-
-```
-{
-  "input_data": {
-    "input_string": [
-      {
-        "role": "system",
-        "content": "You're an AI assistant that helps telco company to extract valuable information from their conversations by creating JSON documents for each conversation transcription you receive. You always try to extract and format as a JSON, fields names between square brackets: 1. Customer Name [name] 2. Customer Contact Phone [phone] 3. Main Topic of the Conversation [topic] 4. Customer Sentiment (Neutral, Positive, Negative)[sentiment] 5. How the Agent Handled the Conversation [agent_behavior] 6. What was the FINAL Outcome of the Conversation [outcome] 7. A really brief Summary of the Conversation [summary] Only extract information that you're sure. If you're unsure, write 'Unknown/Not Found' in the JSON file. Your answers outputs contains only the json document."
-      },
-      {
-        "role": "user",
-        "content": "Agent: Hello, welcome to Telco's customer service. My name is Juan, how can I assist you? Client: Hello, Juan. I'm calling because I'm having issues with my mobile data plan. It's very slow and I can't browse the internet or use my apps. Agent: I'm very sorry for the inconvenience, sir. Could you please tell me your phone number and your full name? Client: Yes, sure. My number is 011-4567-8910 and my name is Martín Pérez. Agent: Thank you, Mr. Pérez. I'm going to check your plan and your data usage. One moment, please. Client: Okay, thank you. Agent: Mr. Pérez, I've reviewed your plan and I see that you have contracted the basic plan of 2 GB of data per month. Is that correct? Client: Yes, that's correct. Agent: Well, I inform you that you have consumed 90% of your data limit and you only have 200 MB available until the end of the month. That's why your browsing speed has been reduced. Client: What? How is that possible? I barely use the internet on my cell phone. I only check my email and my social networks from time to time. I don't watch videos or download large files. Agent: I understand, Mr. Pérez. But keep in mind that some applications consume data in the background, without you realizing it. For example, automatic updates, backups, GPS, etc. Client: Well, but they didn't explain that to me when I contracted the plan. They told me that with 2 GB I would have enough for the whole month. I feel cheated. Agent: I apologize, Mr. Pérez. It was not our intention to deceive you. I offer you a solution: if you want, you can change your plan to a higher one, with more GB of data and higher speed. This way you can enjoy a better browsing experience. Client: And how much would that cost me? Agent: We have a special offer for you. For only 10 pesos more per month, you can access the premium plan of 5 GB of data and 4G speed. Are you interested? Client: Mmm, I don't know. Isn't there another option? Can't you give me more speed without charging me more? Agent: I'm sorry, Mr. Pérez. That's the only option we have available. If you don't change your plan, you'll have to wait until next month to recover your normal speed. Or you can buy an additional data package, but it would be more expensive than changing plans. Client: Well, let me think about it. Can I call later to confirm? Agent: Of course, Mr. Pérez. You can call whenever you want. The number is the same one you dialed now. Is there anything else I can help you with? Client: No, that's all. Thank you for your attention. Agent: Thank you, Mr. Pérez. Have a good day. Goodbye."
-      }
-    ],
-    "parameters": {
-      "temperature": 0.8,
-      "top_p": 0.8,
-      "do_sample": true,
-      "max_new_tokens": 1000
-    }
-  }
-}
-```
-
-You will see a result generated by the model similar to the one shown in the image below.
-
-![LLMOps Workshop](images/12.03.2024_22.48.11_REC.png)
-
-##### 3) Discover Content Safety
-
-Now let's test how the Content Safety service can be used in conjunction with an Open Source model with Llama 2.
-
-First, let's test the behavior of the Azure OpenAI's gpt-4 model, select the **Playground** option in the **Tools** section from the **Build**  menu.
-
-In the playground, make sure the selected model is gpt-4 and copy the following prompt:
-
-```
-You're an AI assistant that helps telco company to extract valuable information from their conversations by creating JSON files for each conversation transcription you receive. 
-
-You always try to extract and format as a JSON, fields names between square brackets:
-
-1. Customer Name [name]
-2. Customer Contact Phone [phone]
-3. Main Topic of the Conversation [topic]
-4. Customer Sentiment (Neutral, Positive, Negative)[sentiment]
-5. How the Agent Handled the Conversation [agent_behavior]
-6. What was the FINAL Outcome of the Conversation [outcome]
-7. A really brief Summary of the Conversation [summary]
-
-Conversation:
-
-Agent: Hi Mr. Perez, welcome to Telco's customer service. My name is Juan, how can I assist you?
-Client: Hello, Juan. I am very dissatisfied with your services.
-Agent: ok sir, I am sorry to hear that, how can I help you?
-Client: I hate this company I will kill everyone with a bomb.
-```
-
-Check the response from gpt-4, the Violence filter was triggered with the text.
-
-![LLMOps Workshop](images/08.04.2024_10.48.45_REC.png)
-
-Now in the **Deployments** item in the **Components** section in the **Build** menu, select the deployment of the Llama 2 model and then open the **Test** tab to test with this Input:
-
-```
-{
-  "input_data": {
-    "input_string": [
-      {
-        "role": "system",
-        "content": "You're an AI assistant that helps telco company to extract valuable information from their conversations by creating JSON documents for each conversation transcription you receive. You always try to extract and format as a JSON, fields names between square brackets: 1. Customer Name [name] 2. Customer Contact Phone [phone] 3. Main Topic of the Conversation [topic] 4. Customer Sentiment (Neutral, Positive, Negative)[sentiment] 5. How the Agent Handled the Conversation [agent_behavior] 6. What was the FINAL Outcome of the Conversation [outcome] 7. A really brief Summary of the Conversation [summary] Only extract information that you're sure. If you're unsure, write 'Unknown/Not Found' in the JSON file. Your answers outputs contains only the json document."
-      },
-      {
-        "role": "user",
-        "content": "Agent: Hi Mr. Perez, welcome to Telco's customer service. My name is Juan, how can I assist you? Client: Hello, Juan. I am very dissatisfied with your services. Agent: ok sir, I am sorry to hear that, how can I help you? Client: I hate this company I will kill everyone with a bomb."
-      }
-    ],
-    "parameters": {
-      "temperature": 0.8,
-      "top_p": 0.8,
-      "do_sample": true,
-      "max_new_tokens": 1000
-    }
-  }
-}
-```
-
-Notice the result of the model, content was not blocked.
-
-![LLMOps Workshop](images/08.04.2024_10.01.04_REC.png)
-
-To see how the Content Safety service can help you filter this type of content, select **Content Safety Studio** from the **All Azure AI** drop-down menu in the top right corner.
-
-![LLMOps Workshop](images/06.02.2024_23.28.26_REC.png)
-
-Select the same service that you created in the **Setup** section of this lab and click on **Use resource**
-
-![LLMOps Workshop](images/08.04.2024_14.59.17_REC.png)
-
-Upon reaching the following screen, choose **Try it out** in the **Moderate text content** box.
-
-![LLMOps Workshop](images/06.02.2024_23.31.19_REC.png)
-
-Paste the same text used earlier into the **2. Test** field and then select **Run Test**, you will see how the Violence filter is triggered with the provided content.
-
-![LLMOps Workshop](images/17.12.2023_20.00.00_REC.png)
-
-##### 4) Create a Prompt Flow flow
-
-Great, now that you have seen how you can deploy models, test them in the playground, and also seen a bit of how Content Safety works, let's see how you can create an orchestration flow for your LLM application in Prompt Flow.
-
-To start, let's go back to the Playground with the gpt-4 model, add the same system message that we used in the initial test and then click on the  **Customize in prompt flow** option.
-
-```
-You're an AI assistant that helps telco company to extract valuable information from their conversations by creating JSON files for each conversation transcription you receive. You always try to extract and format as a JSON:
-1. Customer Name [name]
-2. Customer Contact Phone [phone]
-3. Main Topic of the Conversation [topic]
-4. Customer Sentiment (Neutral, Positive, Negative)[sentiment]
-5. How the Agent Handled the Conversation [agent_behavior]
-6. What was the FINAL Outcome of the Conversation [outcome]
-7. A really brief Summary of the Conversation [summary]
-
-Only extract information that you're sure. If you're unsure, write "Unknown/Not Found" in the JSON file.
-```
-
-![LLMOps Workshop](images/17.12.2023_20.20.01_REC.png)
-
-By doing this, you will create a new flow in Prompt Flow.
-
-Click **Open** to open your newly created flow.
-
-![LLMOps Workshop](images/17.12.2023_20.20.26_REC.png)
-
-In the following figure, on the right side, a single node represents the step in the flow where the LLM model is called.
-
-![LLMOps Workshop](images/17.12.2023_20.21.07_REC.png)
-
-Observe that the Playground's configuration for deployment, prompt, and parameters like temperature and max_tokens were used to populate the created flow.
-
-To execute the flow within the Studio, you'll require a Runtime. To initiate it, simply choose the "Start" option from the Runtime dropdown menu.
-
-![LLMOps Workshop](images/03.01.2024_09.24.25_REC.png)
-
-Done! Now just select the started Runtime and click on the blue **Chat** button to test your flow in the chat window.
-
-![LLMOps Workshop](images/17.12.2023_20.34.52_REC.png)
-
-Paste the same content used in the initial Playground test and send it in the chat, you will see the expected result as can be seen in the next image:
-
-```
-Agent: Hello, welcome to Telco's customer service. My name is Juan, how can I assist you?
-Client: Hello, Juan. I'm calling because I'm having issues with my mobile data plan. It's very slow and I can't browse the internet or use my apps.
-Agent: I'm very sorry for the inconvenience, sir. Could you please tell me your phone number and your full name?
-Client: Yes, sure. My number is 011-4567-8910 and my name is Martín Pérez.
-Agent: Thank you, Mr. Pérez. I'm going to check your plan and your data usage. One moment, please.
-Client: Okay, thank you.
-Agent: Mr. Pérez, I've reviewed your plan and I see that you have contracted the basic plan of 2 GB of data per month. Is that correct?
-Client: Yes, that's correct.
-Agent: Well, I inform you that you have consumed 90% of your data limit and you only have 200 MB available until the end of the month. That's why your browsing speed has been reduced.
-Client: What? How is that possible? I barely use the internet on my cell phone. I only check my email and my social networks from time to time. I don't watch videos or download large files.
-Agent: I understand, Mr. Pérez. But keep in mind that some applications consume data in the background, without you realizing it. For example, automatic updates, backups, GPS, etc.
-Client: Well, but they didn't explain that to me when I contracted the plan. They told me that with 2 GB I would have enough for the whole month. I feel cheated.
-Agent: I apologize, Mr. Pérez. It was not our intention to deceive you. I offer you a solution: if you want, you can change your plan to a higher one, with more GB of data and higher speed. This way you can enjoy a better browsing experience.
-Client: And how much would that cost me?
-Agent: We have a special offer for you. For only 10 pesos more per month, you can access the premium plan of 5 GB of data and 4G speed. Are you interested?
-Client: Mmm, I don't know. Isn't there another option? Can't you give me more speed without charging me more?
-Agent: I'm sorry, Mr. Pérez. That's the only option we have available. If you don't change your plan, you'll have to wait until next month to recover your normal speed. Or you can buy an additional data package, but it would be more expensive than changing plans.
-Client: Well, let me think about it. Can I call later to confirm?
-Agent: Of course, Mr. Pérez. You can call whenever you want. The number is the same one you dialed now. Is there anything else I can help you with?
-Client: No, that's all. Thank you for your attention.
-Agent: Thank you, Mr. Pérez. Have a good day. Goodbye.
-```
-
-Results:
-
-![LLMOps Workshop](images/17.12.2023_20.36.17_REC.png)
-
-
-#### Removing your Llama 2 deployment
-
-In this lab, you've used a **Standard_NC24s_v3** SKU to deploy your Llama2 model. To prevent incurring high costs, it's recommended to delete this deployment now since it won't be used in the next labs.
-
-To do this, select **Delete deployment** on the screen with the Llama2 deployment.
+이를 위해 Llama2 배포 화면에서 **배포 삭제**를 선택합니다.
 
 ![LLMOps Workshop](images/08.04.2024_16.31.56_REC.png)
 
-Click on **Delete**, as shown in the following screen, to complete the removal.
+다음 화면에 표시된대로 **삭제**를 클릭하여 삭제를 완료합니다.
 
 ![LLMOps Workshop](images/08.04.2024_16.27.10_REC.png)
+

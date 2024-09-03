@@ -1,50 +1,35 @@
 # LLMOps Workshop
 
-Welcome to the LLMOps workshop! This course will guide you through building, evaluating, monitoring, and deploying Large Language Model solutions efficiently using Azure AI, Azure Machine Learning Prompt Flow, Content Safety, and Azure OpenAI. Let's master LLMOps together!
+LLMOps 워크샵에 오신 것을 환영합니다! 이 강좌는 Azure AI, Azure Machine Learning Prompt Flow, Content Safety, Azure OpenAI를 사용하여 대형 언어 모델 솔루션을 효율적으로 구축, 평가, 모니터링 및 배포하는 방법을 안내합니다. 함께 LLMOps를 마스터해 봅시다!
 
 
-- [Workshop contents](https://microsoft.github.io/llmops-workshop/)
-- [Change log](CHANGELOG.md)
+- [워크샵 내용](https://microsoft.github.io/llmops-workshop/)
+- [변경 로그](CHANGELOG.md)
 
 
 
-## Contributing
+## 기여하기
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+이 프로젝트는 기여와 제안을 환영합니다. 대부분의 기여는 기여자 라이선스 계약(CLA)에 동의해야 합니다. 이 계약은 기여한 내용에 대한 사용 권한을 부여하고 실제로 사용할 수 있는 권한이 있는지를 선언합니다. 자세한 내용은 https://cla.opensource.microsoft.com을 참조하세요.
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+풀 리퀘스트를 제출할 때 CLA 봇이 자동으로 CLA를 제공해야 하는지 여부를 자동으로 확인하고 PR을 적절하게 꾸미게 됩니다(예: 상태 확인, 코멘트). 봇이 제공하는 지침에 따르면 됩니다. 이는 CLA를 사용하는 모든 저장소에서 한 번만 수행하면 됩니다.
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+이 프로젝트는 [Microsoft 오픈 소스 행동 강령](https://opensource.microsoft.com/codeofconduct/)을 채택했습니다. 자세한 내용은 [행동 강령 FAQ](https://opensource.microsoft.com/codeofconduct/faq/)를 참조하거나 [opencode@microsoft.com](mailto:opencode@microsoft.com)로 문의하세요.
 
-## Trademarks
+## 상표
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+이 프로젝트에는 프로젝트, 제품 또는 서비스에 대한 상표 또는 로고가 포함될 수 있습니다. Microsoft 상표 또는 로고의 사용은 Microsoft의 [상표 및 브랜드 가이드라인](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general)을 따라야 합니다. 이 프로젝트의 수정된 버전에서 Microsoft 상표 또는 로고의 사용은 혼동을 일으키거나 Microsoft의 후원을 시사해서는 안 됩니다. 제3자 상표 또는 로고의 사용은 해당 제3자의 정책에 따릅니다.
 
-## Code of Conduct
+## 행동 강령
 
-This project has adopted the
-[Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the
-[Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/)
-or contact [opencode@microsoft.com](mailto:opencode@microsoft.com)
-with any additional questions or comments.
+이 프로젝트는 [Microsoft 오픈 소스 행동 강령](https://opensource.microsoft.com/codeofconduct/)을 채택했습니다. 자세한 내용은 [행동 강령 FAQ](https://opensource.microsoft.com/codeofconduct/faq/)를 참조하거나 [opencode@microsoft.com](mailto:opencode@microsoft.com)로 문의하세요.
 
-## License
+## 라이선스
 
-Copyright (c) Microsoft Corporation. All rights reserved.
+저작권 (c) Microsoft Corporation. 판권 소유. 
 
-Licensed under the [MIT](LICENSE) license.
+[MIT](LICENSE) 라이선스에 따라 사용됩니다.
 
-### Reporting Security Issues
+### 보안 문제 보고
 
-[Reporting Security Issues](https://github.com/microsoft/repo-templates/blob/main/shared/SECURITY.md)
+[보안 문제 보고](https://github.com/microsoft/repo-templates/blob/main/shared/SECURITY.md)
