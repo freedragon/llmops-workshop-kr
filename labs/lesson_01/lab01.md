@@ -147,7 +147,7 @@ Agent: 홍길동씨, 감사합니다. 좋은 하루 보내세요. 안녕히 가�
 
 결과:
 
-shop](images/17.12.2023_20.36.17_REC.png)
+![LLMOps Workshop](images/17.12.2023_20.36.17_REC.png)
 
 #### Llama 2 배포 삭제하기
 
