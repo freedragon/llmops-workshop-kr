@@ -1,44 +1,44 @@
 ---
-title: 'Lab 04: Monitoring'
+title: 'Lab 04: 모니터링'
 layout: default
 nav_order: 5
 ---
-####  Monitoring
+####  모니터링
 
-#### Prerequisites
+#### 사전 요구 사항
 
-An Azure subscription where you can create an AI Hub Resource and a AI Search service.
+AI 허브 리소스와 AI 검색 서비스를 생성할 수 있는 Azure 구독이 필요합니다.
 
-#### Setup
+#### 설정
 
-If you are running this Lab after lesson 1, you don't need to worry about this step.
+이 랩을 수행하기 전에 1번 레슨 이후에 실행 중인 경우 이 단계에 대해 걱정할 필요가 없습니다.
 
-Otherwise, follow **Setup** from **Lesson 1** to create a project and its associated resources in Azure AI Studio, as well as to deploy the GPT-4 model.
+그렇지 않은 경우, Azure AI Studio에서 프로젝트와 관련 리소스를 생성하고 GPT-4 모델을 배포하는 데 필요한 **설정**을 **1번 레슨**에서 따르세요.
 
-#### Lab Steps
+#### 랩 단계
 
-In this Lab, you will execute the following steps:
+이 랩에서는 다음 단계를 수행합니다:
 
-1) Monitoring your LLMs flow.
+1) LLM 플로우 모니터링하기.
 
-2) Add Content Safety to your Solution.
+2) 솔루션에 콘텐츠 안전성 추가하기.
 
-##### 1) Monitoring your LLMs flow
+##### 1) LLM 플로우 모니터링하기
 
-Modify the output node of the workflow to incorporate the required information for computing the metrics that need monitoring, as outlined in the [User Experience](https://learn.microsoft.com/en-us/azure/ai-studio/how-to/monitor-quality-safety#user-experience) section of the Monitor Quality and Safety of Deployed Applications documentation. Be sure to activate monitoring by selecting the "Enable" button within the Model Monitoring section when deploying the workflow.
+[배포된 애플리케이션의 품질과 안전성 모니터링](https://learn.microsoft.com/ko-kr/azure/ai-studio/how-to/monitor-quality-safety#user-experience) 문서의 **사용자 경험** 섹션에 설명된대로 모니터링에 필요한 메트릭을 계산하기 위해 워크플로우의 출력 노드를 수정하세요. 워크플로우를 배포할 때 모델 모니터링 섹션 내에서 "활성화" 버튼을 선택하여 모니터링을 활성화하세요.
 
-##### 2) Add Content Safety to your Solution
+##### 2) 솔루션에 콘텐츠 안전성 추가하기
 
-Create a basic flow from scratch (a simple Joke flow will be constructed).  
-   
-Make the following adjustments to the flow as per the instructions below:  
-   
-- Insert a [Content Safety tool](https://learn.microsoft.com/en-us/azure/machine-learning/prompt-flow/tools-reference/content-safety-text-tool) node between the input and the language model (LLM).  
-   
-- Add a Python node to process the output from the Content Safety tool and determine whether to proceed with the standard flow or not. For guidance on creating a conditional flow in Prompt Flow, refer to [this example](https://github.com/microsoft/promptflow/tree/main/examples/flows/standard/conditional-flow-for-if-else).  
-   
-- Add a Python node to craft a default response.  
-   
-- Implement conditions to trigger one response or another, depending on the Content Safety's result.  
-   
-- Develop a final node to compile and deliver the response to the user.
+기본 플로우를 처음부터 생성하세요 (간단한 농담 플로우를 구성할 것입니다).
+
+아래 지침에 따라 플로우에 다음 조정을 수행하세요:
+
+- 입력과 언어 모델 (LLM) 사이에 [콘텐츠 안전성 도구](https://learn.microsoft.com/ko-kr/azure/machine-learning/prompt-flow/tools-reference/content-safety-text-tool) 노드를 삽입하세요.
+
+- 콘텐츠 안전성 도구의 출력을 처리하고 표준 플로우를 진행할지 여부를 결정하기 위해 Python 노드를 추가하세요. Prompt Flow에서 조건부 플로우를 생성하는 방법에 대한 안내는 [이 예제](https://github.com/microsoft/promptflow/tree/main/examples/flows/standard/conditional-flow-for-if-else)를 참조하세요.
+
+- 기본 응답을 작성하기 위해 Python 노드를 추가하세요.
+
+- 콘텐츠 안전성의 결과에 따라 다른 응답을 트리거할 조건을 구현하세요.
+
+- 최종 노드를 개발하여 사용자에게 응답을 컴파일하고 전달하세요.

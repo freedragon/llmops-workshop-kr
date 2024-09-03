@@ -1,79 +1,79 @@
 ---
-title: 'Lab 03: Evaluating and Deploying LLMs'
+title: 'Lab 03: LLM 평가 및 배포'
 layout: default
 nav_order: 4
 ---
-#### Evaluating and Deploying LLMs
+#### LLM 평가 및 배포
 
-#### Prerequisites
+#### 사전 요구 사항
 
-An Azure subscription where you can create an AI Hub Resource and a AI Search service.
+AI 허브 리소스와 AI 검색 서비스를 생성할 수 있는 Azure 구독이 필요합니다.
 
-#### Setup
+#### 설정
 
-If you are running this Lab after lesson 1, you don't need to worry about this step. Otherwise, follow **Setup** from **Lesson 1** to create a project and its associated resources in Azure AI Studio, as well as to deploy the GPT-4 model.
+이 랩을 수행하기 전에 1번 레슨 이후에 실행 중인 경우 이 단계에 대해 걱정할 필요가 없습니다. 그렇지 않은 경우 **1번 레슨**의 **설정**을 따라 Azure AI Studio에서 프로젝트와 관련 리소스를 생성하고 GPT-4 모델을 배포하세요.
 
-#### Lab Steps
+#### 랩 단계
 
-In this Lab, you will execute the following steps:
+이 랩에서 다음 단계를 실행합니다:
 
-1) Evaluate your Chat flow.
+1) 채팅 플로우 평가하기.
 
-2) Deploy the RAG flow to an online managed endpoint.
+2) RAG 플로우를 온라인 관리 엔드포인트에 배포하기.
 
-##### 1) Evaluate your Chat flow
+##### 1) 채팅 플로우 평가하기
 
-Go to your browser and type: https://ai.azure.com
+브라우저에서 https://ai.azure.com을 입력하세요.
 
-Select the project created earlier and choose the **Prompt flow** item in the **Tools** section of the **Build** tab.
+이전에 생성한 프로젝트를 선택하고 **Build** 탭의 **Tools** 섹션에서 **Prompt flow** 항목을 선택하세요.
 
-###### 1.1) Prepare you chat flow for evaluation
+###### 1.1) 채팅 플로우 평가를 위해 준비하기
 
-For the RAG flow that you created earlier to be evaluated, you must include additional information to the output node of this flow, specifically the context used to generate the answer.
+이전에 생성한 RAG 플로우를 평가하려면 이 플로우의 출력 노드에 추가 정보를 포함해야 합니다. 특히, 답변을 생성하는 데 사용된 컨텍스트를 포함해야 합니다.
 
-This information will be used by the Evaluation Flow. To do this, just follow these steps:
+이 정보는 평가 플로우에서 사용됩니다. 이를 위해 다음 단계를 따르세요:
 
-In the Flows section of **Prompt Flow**, open the `Multi-Round Q&A on Your Data` flow that you created in the previous lab. This will be the flow we use for evaluation.
+**Prompt Flow**의 Flows 섹션에서 이전 랩에서 생성한 `Multi-Round Q&A on Your Data` 플로우를 엽니다. 이것이 우리가 평가에 사용할 플로우입니다.
 
 ![LLMOps Workshop](images/26.02.2024_23.43.08_REC.png)
 
-Create a new output named `documents` in the Outputs node. This output will represent the documents that were retrieved in the `lookup` node and subsequently formatted in the `generate_prompt_context` node.
+Outputs 노드에서 `documents`라는 새로운 출력을 생성하세요. 이 출력은 `lookup` 노드에서 검색된 문서를 포맷팅한 `generate_prompt_context` 노드에서 생성된 문서를 나타냅니다.
 
-Assign the output of the `generate_prompt_context` node to the `documents` output, as shown in the image below.
+`generate_prompt_context` 노드의 출력을 `documents` 출력에 할당하세요. 아래 이미지와 같이 설정하세요.
 
 ![LLMOps Workshop](images/07.02.2024_23.37.47_REC.png)
 
-Click **Save** before moving to the next section.
+다음 섹션으로 이동하기 전에 **Save**를 클릭하세요.
 
-###### 1.2) Create your evaluation flows
+###### 1.2) 평가 플로우 생성하기
 
-Still in the **Prompt flow** item in the **Tools** section of the **Build** tab, click on the blue **Create** button.
+**Build** 탭의 **Tools** 섹션에서 **Prompt flow** 항목에서 파란색 **Create** 버튼을 클릭하세요.
 
 ![LLMOps Workshop](images/05.01.2024_00.43.51_REC.png)
 
-Select the **Evaluation Flow** filter and click on **Clone** on the **QnA Groundedness Evaluation** card.
+**Evaluation Flow** 필터를 선택하고 **QnA Groundedness Evaluation** 카드의 **Clone**을 클릭하세요.
 
 ![LLMOps Workshop](images/26.02.2024_23.14.59_REC.png)
 
-Click on the other **Clone** button to create a copy of the flow.
+플로우를 복사하기 위해 다른 **Clone** 버튼을 클릭하세요.
 
 ![LLMOps Workshop](images/26.02.2024_23.18.12_REC.png)
 
-A flow will be created with the following structure:
+다음 구조를 가진 플로우가 생성됩니다:
 
 ![LLMOps Workshop](images/26.02.2024_23.21.02_REC.png)
 
-Update the `Connection` field to point to a gpt-4 deployment in `groundedness_score` node also update max_tokens to `1000` as shown in the next figure.  
-   
+`groundedness_score` 노드의 `Connection` 필드를 gpt-4 배포를 가리키도록 업데이트하고 max_tokens를 `1000`으로 업데이트하세요. 다음 그림과 같이 설정하세요.
+
 ![LLMOps Workshop](images/26.02.2024_23.24.46_REC.png)
 
-After updating the connection information, click on **Save** in the evaluation flow and navigate to the Flows section in **Prompt Flow** item.
+연결 정보를 업데이트한 후, 평가 플로우에서 **Save**를 클릭하고 **Prompt Flow** 항목의 Flows 섹션으로 이동하세요.
 
-Now, you will repeat the same steps described so far in this **section 1.2** to create **two** additional evaluation flows, one `QnA Relevance Evaluation` and another `QnA GPT Similarity Evaluation`. The two images below show where these flows are in the prompt flow gallery.
+이제 이전에 설명한 **1.2 섹션**에서 **두 개**의 추가 평가 플로우, `QnA Relevance Evaluation`와 `QnA GPT Similarity Evaluation`를 생성하기 위해 동일한 단계를 반복하세요. 아래 두 이미지는 이러한 플로우가 prompt flow 갤러리에서 어디에 있는지 보여줍니다.
 
-> You will repeat **section 1.2** steps twice since you will need to create two additional evaluation flows.
+> 두 개의 추가 평가 플로우를 생성해야 하므로 **1.2 섹션** 단계를 두 번 반복합니다.
 
-> Note that the LLM nodes, where you will set the Azure OpenAI connection for each flow, have slightly different names: **relevance_score** and **similarity_score**, respectively.
+> 각 플로우에 대해 Azure OpenAI 연결을 설정할 LLM 노드의 이름이 약간 다르다는 점에 유의하세요: 각각 **relevance_score**와 **similarity_score**입니다.
 
 QnA Relevance Evaluation:
 
@@ -85,41 +85,41 @@ QnA GPT Similarity Evaluation:
 ![LLMOps Workshop](images/14.03.2024_16.05.01_REC.png)
 
 
-###### 1.3) Run the evaluation
+###### 1.3) 평가 실행하기
 
-In the Flows section of **Prompt Flow**, open the `Multi-Round Q&A on Your Data` flow that you created in the previous lab. This will be the flow we use for evaluation.
+**Prompt Flow**의 Flows 섹션에서 이전 랩에서 생성한 `Multi-Round Q&A on Your Data` 플로우를 엽니다. 이것이 우리가 평가에 사용할 플로우입니다.
 
-Start the automatic runtime by selecting **Start** in the **Runtime** drop down. The runtime will be useful for you to work with the flow moving forward.
+**Runtime** 드롭다운에서 **Start**를 선택하여 자동 실행을 시작하세요. 이러한 런타임은 플로우 작업에 유용합니다.
 
 ![LLMOps Workshop](images/13.03.2024_10.31.21_REC.png)
 
-Now select the **Custom evaluation** option in the Evaluate menu.
+이제 **Evaluate** 메뉴에서 **Custom evaluation** 옵션을 선택하세요.
 
 ![LLMOps Workshop](images/05.01.2024_01.31.10_REC.png)
 
-In the `Prompt_variants` option, select the option to run only **two variants** to avoid reaching your GPT-4 model quota limit, as shown in the example image below.
+`Prompt_variants` 옵션에서 **two variants**만 실행하도록 선택하여 GPT-4 모델 할당량을 초과하지 않도록 주의하세요. 다음 예시 이미지와 같이 설정하세요.
 
 ![LLMOps Workshop](images/15.03.2024_00.36.03_REC.png)
 
-Select **Add new data**.
+**Add new data**를 선택하세요.
 
 ![LLMOps Workshop](images/26.02.2024_23.51.33_REC.png)
 
-Upload the file data.csv inside the lesson_03 folder.
+lesson_03 폴더 내의 data.csv 파일을 업로드하세요.
 
 ![LLMOps Workshop](images/26.02.2024_23.54.35_REC.png)
 
-After clicking on **Add**  proceed to map the input fields as shown below: 
+**Add**를 클릭한 후, 아래 이미지와 같이 입력 필드를 매핑하세요.
 
 ![LLMOps Workshop](images/05.01.2024_01.36.19_REC.png)
 
-Select the three evaluation flows you just created.
+방금 생성한 세 개의 평가 플로우를 선택하세요.
 
 ![LLMOps Workshop](images/14.03.2024_22.29.58_REC.png)
 
-Great job so far! Now, let's move on to the next step. Click on **Next** to set up the `question`, `context`, `ground_truth` and `answer` fields for each evaluation flow. You can see how to do this in the three images below.
+지금까지 잘 하셨습니다! 이제 다음 단계로 넘어갑시다. **Next**를 클릭하여 각 평가 플로우에 대해 `question`, `context`, `ground_truth`, `answer` 필드를 설정하세요. 이를 위한 세 가지 이미지에서 어떻게 수행하는지 확인할 수 있습니다.
 
-> **Note:** Please take a moment to ensure you've selected the correct value. It's crucial for accurate metric calculation. Notice that the default values initially presented in the wizard are not the same as those indicated in the following images. Keep up the good work!
+> **참고:** 올바른 값을 선택했는지 확인하기 위해 잠시 시간을 내어주세요. 정확한 지표 계산에 중요합니다. 마법사에서 처음에 제시된 기본값은 다음 이미지에서 나타난 값과 동일하지 않습니다. 좋은 작업을 계속하세요!
 
 **QnA GPT Similarity Evaluation**
 
@@ -133,30 +133,30 @@ Great job so far! Now, let's move on to the next step. Click on **Next** to set 
 
 ![LLMOps Workshop](images/14.03.2024_23.12.25_REC.png)
 
-Click on **Submit** to start the evaluation.
+평가를 시작하려면 **Submit**을 클릭하세요.
 
 ![LLMOps Workshop](images/05.01.2024_01.44.01_REC.png)
 
-The evaluation process has started. To view all evaluations (one per variant), please navigate to the **Evaluation** section under the **Build** tab.
+평가 프로세스가 시작되었습니다. **Build** 탭 아래의 **Evaluation** 섹션으로 이동하여 모든 평가(각 변형별 하나씩)을 확인할 수 있습니다.
 
 ![LLMOps Workshop](images/15.03.2024_00.52.20_REC.png)
 
-Upon selecting specific evaluation results, you will have the ability to view their detailed information.
+특정 평가 결과를 선택하면 해당 결과의 상세 정보를 확인할 수 있습니다.
 
-You can also select **Switch to dashboard view** to access a dashboard that provides a tabular and visual comparison between the rounds of different variations, as shown in the following images.
+또한 **Switch to dashboard view**를 선택하여 다른 변형의 라운드 간의 테이블 및 시각적 비교를 제공하는 대시보드에 액세스할 수 있습니다. 다음 이미지에서 확인할 수 있습니다.
 
-*Table comparison*
+*테이블 비교*
 
 ![LLMOps Workshop](images/15.03.2024_01.28.00_REC.png)
 
-*Chart comparison*
+*차트 비교*
 
 ![LLMOps Workshop](images/15.03.2024_01.21.34_REC.png)
 
-##### 2) Deploy the RAG flow to an online managed endpoint
+##### 2) RAG 플로우를 온라인 관리 엔드포인트에 배포하기
 
-Open the **Multi-Round Q&A on Your Data** flow that you created in the previous lab.
+이전 랩에서 생성한 **Multi-Round Q&A on Your Data** 플로우를 엽니다.
 
-After opening the flow, follow the instructions indicated in this link:
+플로우를 열고 다음 링크에서 지시사항을 따르세요:
 
 https://learn.microsoft.com/en-us/azure/ai-studio/how-to/flow-deploy
